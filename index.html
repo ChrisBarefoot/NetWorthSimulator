@@ -1,0 +1,295 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>    
+    <script src="dygraphs.js"></script>
+    <script src="market.js"></script>
+    <script src="main.js"></script>
+    
+</head>
+<body>
+
+<script>
+var currentNW = [
+["hisSalary", 50000],
+["herSalary", 50000],
+["salaryGrowth", 2],
+["cashStart", 10000],
+["cashAddition", 1],
+["cashGrowth", 2],
+["mortgageStartInput", 200000],
+["mortgageInterestInput", 3],
+["mortgageTermInput", 160],
+["mortgageExtraInput", 300],
+["mortgageNewValue", 500000],
+["mortgageNewYear", 6],
+["autoLoanInput", 0],
+["autoLoanRate", 2],
+["autoLoanTerm", 37],
+["newCarPrice", 0],
+["newCarFreq", 3],
+["his401kStart", 0],
+["his401kAdd", 0],
+["his401kProfit", 5.5],
+["his401kMatch", 3],
+["her401kStart", 0],
+["her401kAdd", 0],
+["her401kProfit", 5.5],
+["her401kMatch", 3],
+["hisRothStart", 0],
+["hisRothAddition", 0],
+["taxableStart", 0],
+["taxableAddition", 3000],
+["startCarValue", 0],
+["carDepreciation", 10],
+["houseValueInput", 0],
+["houseValueGrowth", 1],
+["startStockPerc", 80],
+["startBondPerc", 20],
+["endStockPerc", 40],
+["endBondPerc", 60]
+];
+
+</script>
+<div id="startingValues">
+    <div id='valuesEntryTitle'>Starting Values</div>
+
+    <div class='catEntry'>
+        <div class='catTitle'>Salary</div>
+        <div>
+            His Salary ($)
+            <input id='hisSalary' type='text' class='dollarBox' value='50000'/>
+        </div>
+        <div>
+            Her Salary ($)
+            <input id='herSalary' type='text' class='dollarBox' value='50000'/>
+        </div>
+        <div>
+            Growth (%)
+            <input id='salaryGrowth' type='text' class='percBox' value='2' />
+        </div>
+    </div>
+
+    <div class='catEntry'>
+        <div class='catTitle'>Cash</div>
+        <div>
+            Starting ($)
+            <input id='cashStart' type='text' class='dollarBox' value='10000'/>
+        </div>
+        <div>
+            Addition as a % of<br/> total Salary (%/yr)
+            <input id='cashAddition' type='text' class='percBox' value='1'/>
+        </div>
+        <div>
+            Growth (%)
+            <input id='cashGrowth' type='text' class='percBox' value='2' />
+        </div>
+    </div>
+
+    <div class='catEntry'>
+        <div class='catTitle'>Mortgage</div>
+        <div>
+            Starting ($)
+            <input id='mortgageStartInput' type='text' class='dollarBox' value='200000'/>
+        </div>
+        <div>
+            Interest (%)
+            <input id='mortgageInterestInput' type='text' class='percBox' value='3' />
+        </div>
+        <div>
+            Term (mos)
+            <input id='mortgageTermInput' type='text' class='termBox' value='180'/>
+        </div>
+        <div>
+            Extra ($/mo)
+            <input id='mortgageExtraInput' type='text' class='dollarBox' value='100'/>
+        </div>
+        <div>
+            New House Value
+            <input id='mortgageNewValue' type='text' class='dollarBox' value='400000'/>
+        </div>
+        <div>
+            New House in Years
+            <input id='mortgageNewYear' type='text' class='termBox' value='6' />
+        </div>
+    </div>
+
+    <div class='catEntry'>
+        <div class='catTitle'>Auto Loans</div>
+        <div>
+            Starting ($)
+            <input id='autoLoanInput' type='text' class='dollarBox' value='10000'/>
+        </div>
+        <div>
+            Rate (%)
+            <input id='autoLoanRate' type='text' class='percBox' value='2'/>
+        </div>
+        <div>
+            Term (mos)
+            <input id='autoLoanTerm' type='text' class='termBox' value='48'/>
+        </div>
+        <div>
+            New Car Price
+            <input id='newCarPrice' type='text' class='dollarBox' value='15000' />
+        </div>
+        <div>
+            Frequency
+            <input id='newCarFreq' type='text' class='termBox' value='3' />
+        </div>
+    </div>
+    
+    <div class='catEntry'>
+        <div class='catTitle'>Husband 401k</div>
+        <div>
+            Starting ($)
+            <input id='his401kStart' type='text' value='25000' class='dollarBox'/>
+        </div>
+        <div>
+            Addition ($/mo)
+            <input id='his401kAdd' type='text' value='500' class='dollarBox'/>
+        </div>
+        <div>
+            Profit Sharing (%)
+            <input id='his401kProfit' type='text' value='4' class='percBox'/>
+        </div>
+        <div>
+            Match (%)
+            <input id='his401kMatch' type='text' value='3' class='percBox'/>
+        </div>
+    </div>
+
+    <div class='catEntry'>
+        <div class='catTitle'>Wife 401k</div>
+        <div>
+            Starting ($)
+            <input id='her401kStart' type='text' value='25000' class='dollarBox'/>
+        </div>
+        <div>
+            Addition ($/mo)
+            <input id='her401kAdd' type='text' value='500' class='dollarBox'/>
+        </div>
+        <div>
+            Profit Sharing (%)
+            <input id='her401kProfit' type='text' value='4' class='percBox'/>
+        </div>
+        <div>
+            Match (%)
+            <input id='her401kMatch' type='text' value='3' class='percBox'/>
+        </div>
+    </div>
+
+    <div class='catEntry'>
+        <div class='catTitle'>His Roth IRA</div>
+        <div>
+            Starting ($)
+            <input id='hisRothStart' type='text' class='dollarBox' value='5000'/>
+        </div>
+        <div>
+            Addition ($/mo)
+            <input id='hisRothAddition' type='text' value='200' class='dollarBox'/>
+        </div>
+    </div>
+
+    <div class='catEntry'>
+        <div class='catTitle'>Her Roth IRA</div>
+        <div>
+            Starting ($)
+            <input type='text' class='dollarBox'/>
+        </div>
+        <div>
+            Addition ($/mo)
+            <input type='text' class='dollarBox'/>
+        </div>
+    </div>
+
+    <div class='catEntry'>
+        <div class='catTitle'>Taxable Investing</div>
+        <div>
+            Starting ($)
+            <input id='taxableStart' type='text' value='1000' class='dollarBox'/>
+        </div>
+        <div>
+            Addition ($/mo)
+            <input id='taxableAddition' type='text' value='100' class='dollarBox'/>
+        </div>
+    </div>
+
+    <div class='catEntry'>
+        <div class='catTitle'>Car Worth</div>
+        <div>
+            Starting ($)
+            <input id='startCarValue' type='text' class='dollarBox' value='20000'/>
+        </div>
+        <div>
+            Depreciation (-%)
+            <input id='carDepreciation' type='text' value='10' class='percBox'/>
+        </div>
+    </div>
+
+    <div class='catEntry'>
+        <div class='catTitle'>House Value</div>
+        <div>
+            Starting ($)
+            <input id='houseValueInput' type='text' class='dollarBox' value='200000'/>
+        </div>
+        <div>
+            Appreciation (%)
+            <input id='houseValueGrowth' type='text' value='1' class='percBox'/>
+        </div>
+    </div>
+
+    <div class='catEntry'>
+        <div class='catTitle'>Risk/Allocation</div>
+        <div>
+            Starting Stock (%)
+            <input id='startStockPerc' type='text' class='percBox' value='80'/>
+            Starting Bond (%)
+            <input id='startBondPerc' type='text' class='percBox' value='20'/>
+        </div>
+        <div>
+            Ending Stock (%)
+            <input id='endStockPerc' type='text' value='40' class='percBox'/>
+            Ending Bond (%)
+            <input id='endBondPerc' type='text' value='60' class='percBox'/>
+        </div>
+    </div>
+</div>
+<div id="div_g" style='width: auto; height: 600px;'></div>
+<div id="simButtons">
+    <div class='catTitle'>Run Simulation</div>
+    <div>
+        Years to Project
+        <input id='projectYear' type='text' value='35' class='termBox'/>
+    </div>
+    <div>
+        Flat Market Growth Prediction
+        <input id='flatGrowthInput' type='text' value='5' class='percBox'/>
+    </div>
+    <div>
+        Year
+        <input id='simulateYear' type='text' value='1950' class='termBox'/>
+        <button id='simulateButton'>Simulate!</button>
+    </div>
+    <div>
+        <button id='monteCarloButton'>Simulate All!</button>
+    </div>
+</div>
+<div>
+    <table id='results' style="width:100%">
+      <tr>
+        <th>Date</th>
+        <th>Cash</th>
+        <th>Mortgage</th> 
+        <th>His 401k</th>
+        <th>Her 401k</th>
+        <th>His Roth</th>
+        <th>Taxable</th>
+        <th>House Value</th>
+        <th>Cars</th>
+        <th>Net Worth</th>
+      </tr>
+    </table>
+</div>
+</body>
+</html>

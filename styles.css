@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: museo-sans,sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.3rem;
+  font-weight: 300;
+  color: #0a293d;
+  background-color: #f7fafb;
+}
+
+#startingValues {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.catEntry {
+    margin-bottom: 10px;
+}
+
+.catTitle {
+    font-weight: bold;
+}
+
+.percBox {
+    width: 30px;
+}
+
+.dollarBox {
+    width: 80px;
+}
+
+.termBox {
+    width: 50px;
+}
+
+#valuesEntryTitle {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 10px;
+}
+
+.otherYear {
+  display: none;
+}
+
+#div_g {
+  position: absolute;
+  top: 30px;
+  left: 225px;
+  right: 30px;
+}
+
+#simButtons {
+  position: absolute;
+  top: 640px;
+  right: 10px;
+}
